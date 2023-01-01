@@ -3,14 +3,17 @@ export type Units = "standard" | "metric" | "imperial"
 export type Props = {units?: Units; lang?: Langs}
 export type Coordinates = {lat: Number; lon: Number}
 
-export type WeatherResponse = {
+export type WeatherState = {
+	id: number
+	main: string
+	description: string
+	icon: string
+	iconUrl: string
+}
+
+export interface WeatherResponse {
 	coord: Coordinates
-	weather: Array<{
-		id: number
-		main: string
-		description: string
-		icon: string
-	}>
+	weather: Array<WeatherState>
 	base: string
 	main: {
 		temp: number
@@ -36,8 +39,8 @@ export type WeatherResponse = {
 		type: number
 		id: number
 		country: string
-		sunrise: string
-		sunset: string
+		sunrise: number
+		sunset: number
 	}
 	timezone: number
 	id: number

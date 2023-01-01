@@ -2,10 +2,6 @@ import {WeatherResponse} from "./../../modules/weather/api.d"
 import type {NextApiRequest, NextApiResponse} from "next"
 import {openWeatherMapRequest} from "../../modules/weather/api"
 
-type Data = {
-	name: string
-}
-
 /**
  * @swagger
  * /api/hello:
@@ -18,11 +14,7 @@ type Data = {
  */
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<WeatherResponse>) {
-	console.log("req")
-
-	const data = await openWeatherMapRequest({lat: 60.018169, lon: 30.3162})
-
-	console.log(data.sys.sunset)
-
+	const {lon = 30.3162, lat = 60.018169} = req.query
+	const data = await openWeatherMapRequest({lat: +lat, lon: +lon})
 	res.status(200).json(data)
 }
